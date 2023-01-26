@@ -10,6 +10,8 @@ void test_ecrire_image()
 	Image I = lire_fichier_image("caractere2.pbm");
 	printf("Image du caractère 2:\n");
 	ecrire_image(I);
+	
+	supprimer_image(&I);
 }
 
 void test_set_pixel_image()
@@ -30,6 +32,8 @@ void test_set_pixel_image()
 
 	printf("Image visage 5x5:\n");
 	ecrire_image(I);
+
+	supprimer_image(&I);
 }
 
 void test_negatif_image()
@@ -45,6 +49,9 @@ void test_negatif_image()
 	Image I_neg = negatif_image(I);
 	printf("Négatif du caractère 2:\n");
 	ecrire_image(I_neg);
+
+	supprimer_image(&I);
+	supprimer_image(&I_neg);
 }
 
 int main(int argc, char **argv)
