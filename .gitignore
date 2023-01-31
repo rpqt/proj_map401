@@ -1,1 +1,5 @@
 IMAGES_TESTS
+*.o
+.~lock.SuiviProjet.ods#
+TACHE1/test_image
+TACHE3/test_contour
