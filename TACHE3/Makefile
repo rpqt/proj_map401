@@ -70,10 +70,17 @@ robot.o : robot.c robot.h image.h
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 
+contour.o : contour.c contour.h robot.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module robot"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
+
 test_contour.o : test_contour.c
 	@echo ""
 	@echo "---------------------------------------------"
-	@echo "Compilation du module test_contout"
+	@echo "Compilation du module test_contour"
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 		

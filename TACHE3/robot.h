@@ -1,4 +1,4 @@
-#include "../TACHE1/image.h"
+#include "image.h"
 /* 
  Type enuméré Orientation équivalent au char avec NORD=0,EST=1,SUD=2,OUEST=3
  */

@@ -1,7 +1,7 @@
 #ifndef CONTOUR_H
 #define CONTOUR_H
 
-#include "../TACHE1/image.h"
+#include "image.h"
 
 /*
  * Cherche un pixel de départ pour un contour dans l'image donnée.
