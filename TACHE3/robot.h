@@ -9,6 +9,8 @@ typedef struct Robot {
     Orientation o;
 } Robot;
 
+Robot creer_robot(int x, int y);
+
 void avancer_robot(Robot *r);
 
 void orienter_robot(Robot *r, Image I);

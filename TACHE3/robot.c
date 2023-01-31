@@ -1,5 +1,10 @@
 #include "robot.h" 
 
+Robot creer_robot(int x, int y)
+{
+	return (Robot){ .x = x, .y = y, .o = EST };
+}
+
 void avancer_robot(Robot *r){
     switch (r->o)
     {
