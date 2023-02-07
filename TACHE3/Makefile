@@ -37,7 +37,7 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_contour
+EXECUTABLES = test_contour test_contour2
 
 
 #############################################################################
@@ -84,7 +84,20 @@ test_contour.o : test_contour.c
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 		
+test_contour2.o : test_contour2.c
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module test_contour2"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
 		
+geometrie2d.o : ../TACHE2/geometrie2d.c ../TACHE2/geometrie2d.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module geometrie2d"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
+
 ########################################################
 # regles explicites de creation des executables
 
@@ -95,6 +108,12 @@ test_contour : test_contour.o contour.o robot.o image.o
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
+test_contour2 : test_contour2.o contour.o robot.o image.o geometrie2d.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
 
 # regle pour "nettoyer" le r�pertoire
 clean:
