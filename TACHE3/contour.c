@@ -62,24 +62,25 @@ Sequence creer_sequence()
 }
 
 /* ajouter le point p en fin de la liste s, renvoie la liste s modifiée */
-Sequence ajouter_point(Sequence s, Point p)
+Sequence ajouter_point(Sequence *s, Point p)
 {
 	Cellule *cel;
 
 	cel = creer_cellule(p);
-	if (s.taille == 0)
+	if (s->taille == 0)
 	{
 		/* premier élément de la liste */
-		s.tete = s.fin = cel;
+		s->tete = cel;
+		s->fin = cel;
 	}
 	else
 	{
-		s.fin->suivant = cel;
-		s.fin = cel;
+		s->fin->suivant = cel;
+		s->fin = cel;
 	}
 
-	s.taille ++;
-	return s; 
+	s->taille ++;
+	return *s; 
 }
 
 /* suppression de tous les éléments de la liste, renvoie la liste s vide */
@@ -178,12 +179,12 @@ Sequence image_vers_contour(Image I, int x_initial, int y_initial)
 	 */
 	do {
 		Point p = set_point(r.x, r.y);
-		ajouter_point(s, p);
+		ajouter_point(&s, p);
 		avancer_robot(&r);
 		orienter_robot(&r, I);
 	} while (r.x != x_initial || r.y != y_initial || r.o != EST);
 
-	ajouter_point(s,set_point(r.x, r.y));
+	ajouter_point(&s,set_point(r.x, r.y));
 
 	return s;
 }
@@ -209,7 +210,7 @@ void ecrire_contour(FILE *f, Sequence s)
 /* écrit plusieurs contours précédés du nombre de contours */
 void ecrire_fichier_contour(FILE *f, Sequence s)
 {
-	fprintf(f, "%s", "1\n");
+	fprintf(f, "%s", "1\n\n");
 	ecrire_contour(f, s);
 }
 

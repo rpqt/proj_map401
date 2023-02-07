@@ -49,7 +49,7 @@ Cellule *creer_cellule(Point p);
 Sequence creer_sequence();
 
 /* ajouter le point p en fin de la liste s, renvoie la liste s modifiée */
-Sequence ajouter_point(Sequence s, Point p);
+Sequence ajouter_point(Sequence *s, Point p);
 
 /* suppression de tous les éléments de la liste, renvoie la liste s vide */
 Sequence supprimer_sequence(Sequence s);
