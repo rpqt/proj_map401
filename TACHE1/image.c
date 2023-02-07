@@ -228,11 +228,13 @@ Image lire_fichier_image(char *nom_f)
 	return I;
 }
 
-/* ecrire l'image I à l'ecran */
+/* Affiche l'image I sur la sortie standard avec des caractères ascii. */
 void ecrire_image(Image I)
 {
-	for (int y = 1; y <= hauteur_image(I); y++) {
-		for (int x = 1; x <= largeur_image(I); x++) {
+	UINT H = hauteur_image(I);
+	UINT L = largeur_image(I);
+	for (int y = 1; y <= H; y++) {
+		for (int x = 1; x <= L; x++) {
 			Pixel px = get_pixel_image(I, x, y);
 			printf(px ? "#" : ".");
 		}
@@ -240,16 +242,17 @@ void ecrire_image(Image I)
 	}
 }
 
-/* calculer l'image "negatif" de l'image I */
-/* l'image I n'est pas modifiee et */
-/* la fonction renvoie l'image "negatif" de I */
+/*
+ * Calcule et renvoie l'image "négatif" de l'image I.
+ * L'image I n'est pas modifiée.
+ */
 Image negatif_image(Image I)
 {
 	UINT L = largeur_image(I);
 	UINT H = hauteur_image(I);
 	Image I_neg = creer_image(L, H);
-	for (int y = 1; y <= hauteur_image(I_neg); y++) {
-		for (int x = 1; x <= largeur_image(I_neg); x++) {
+	for (int y = 1; y <= H; y++) {
+		for (int x = 1; x <= L; x++) {
 			Pixel px = get_pixel_image(I, x, y);
 			set_pixel_image(I_neg, x, y, !px);
 		}
