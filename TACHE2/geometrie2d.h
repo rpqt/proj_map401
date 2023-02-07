@@ -1,3 +1,6 @@
+#ifndef GEOMETRIE2D_H
+#define GEOMETRIE2D_H
+
 typedef struct Point_
 {
     double x, y; /* Coordonnées */
@@ -38,3 +41,5 @@ double norme_vecteur(Vecteur V);
 
 /* distance entre P1 et P2 */
 double distance_points(Point P1, Point P2);
+
+#endif

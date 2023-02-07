@@ -70,7 +70,7 @@ robot.o : robot.c robot.h image.h
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 
-contour.o : contour.c contour.h robot.h
+contour.o : contour.c contour.h robot.h ../TACHE2/geometrie2d.h
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module robot"
@@ -101,7 +101,7 @@ geometrie2d.o : ../TACHE2/geometrie2d.c ../TACHE2/geometrie2d.h
 ########################################################
 # regles explicites de creation des executables
 
-test_contour : test_contour.o contour.o robot.o image.o
+test_contour : test_contour.o contour.o robot.o image.o geometrie2d.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@

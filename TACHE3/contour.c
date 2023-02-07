@@ -1,5 +1,6 @@
 #include "contour.h"
 #include "robot.h"
+#include "../TACHE2/geometrie2d.h"
 
 bool trouve_pixel_depart(Image I, int *x_out, int *y_out)
 {
@@ -92,7 +93,8 @@ Sequence supprimer_sequence(Sequence s)
 		free (cel);
 		cel = suivant;
 	}
-	s.tete = s.fin == NULL;
+	s.tete = NULL;
+	s.fin = NULL;
 	s.taille = 0;
 	return s;
 }
@@ -189,7 +191,7 @@ Sequence image_vers_contour(Image I, int x_initial, int y_initial)
 /* écrit le nombre de points du contour suivi par la liste de points */
 void ecrire_contour(FILE *f, Sequence s)
 {
-	if(s.taille = 0) 
+	if(s.taille == 0) 
 	{
 		fprintf(stderr, "Attention contour vide");
 		return;
@@ -207,7 +209,7 @@ void ecrire_contour(FILE *f, Sequence s)
 /* écrit plusieurs contours précédés du nombre de contours */
 void ecrire_fichier_contour(FILE *f, Sequence s)
 {
-	fprintf("%s", "1\n");
+	fprintf(f, "%s", "1\n");
 	ecrire_contour(f, s);
 }
 
