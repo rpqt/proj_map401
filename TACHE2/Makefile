@@ -88,6 +88,10 @@ test_geometrie2d : test_geometrie2d.o geometrie2d.o
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
+########################################################
+# tests
+test: test_geometrie2d
+	./test_geometrie2d
 
 # regle pour "nettoyer" le r�pertoire
 clean:
