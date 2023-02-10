@@ -4,8 +4,10 @@
 
 bool trouve_pixel_depart(Image I, int *x_out, int *y_out)
 {
-	for (UINT y = 1; y < hauteur_image(I); y++) {
-		for (UINT x = 1; x < largeur_image(I); x++) {
+	UINT hauteur = hauteur_image(I);
+	UINT largeur = largeur_image(I);
+	for (UINT y = 1; y < hauteur; y++) {
+		for (UINT x = 1; x < largeur; x++) {
 			/*
 			 * On arrête dès qu'on trouve un pixel noir
 			 * avec un pixel blanc au dessus

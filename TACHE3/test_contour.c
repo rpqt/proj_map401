@@ -11,7 +11,7 @@ typedef struct Coord_Pixel {
 int main(int argc, char **argv)
 {
 	if (argc < 2) {
-		printf("usage: ./%s <fichier_pbm>\n", argv[0]);
+		printf("usage: %s <image.pbm>\n", argv[0]);
 		exit(1);
 	}
 
@@ -26,4 +26,6 @@ int main(int argc, char **argv)
 	} else {
 		printf("Aucun contour trouvé\n");
 	}
+
+	supprimer_image(&I);
 }
