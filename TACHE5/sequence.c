@@ -1,4 +1,3 @@
-#include "Contour.h"
 #include "sequence.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -6,7 +5,7 @@
 /* créer une CelluleContour de liste avec le point p 
    renvoie le pointeur sur la CelluleContour créée 
    la fonction s'arrete si la création n'a pas pu se faire */
-CelluleContour *creer_CelluleContour(Point p)
+CelluleContour *creer_cellule_contour(Point p)
 {
 	CelluleContour *cel;
 	cel = (CelluleContour *)malloc(sizeof(CelluleContour));
@@ -22,7 +21,7 @@ CelluleContour *creer_CelluleContour(Point p)
 /* créer une Cellule de liste avec le contour c
    renvoie le pointeur sur la CelluleContour créée 
    la fonction s'arrete si la création n'a pas pu se faire */
-Cellule *creer_Cellule(Contour c)
+Cellule *creer_cellule(Contour c)
 {
 	Cellule *cel;
 	cel = (Cellule *)malloc(sizeof(Cellule));
@@ -36,14 +35,14 @@ Cellule *creer_Cellule(Contour c)
 }
 
 /* créer un contour vide */
-Contour creer_Contour()
+Contour creer_contour()
 {
 	Contour s = {0, NULL, NULL};
 	return s;
 }
 
 /* créer une sequence vide */
-Sequence creer_Sequence()
+Sequence creer_sequence()
 {
 	Sequence s = {0, NULL, NULL};
 	return s;
@@ -54,7 +53,7 @@ Contour ajouter_point(Contour *c, Point p)
 {
 	CelluleContour *cel;
 
-	cel = creer_CelluleContour(p);
+	cel = creer_cellule_contour(p);
 	if (c->taille == 0)
 	{
 		/* premier élément de la liste */
@@ -76,7 +75,7 @@ Sequence ajouter_contour(Sequence *s, Contour c)
 {
 	Cellule *cel;
 
-	cel = creer_Cellule(c);
+	cel = creer_cellule(c);
 	if (s->taille == 0)
 	{
 		/* premier élément de la liste */
@@ -94,7 +93,7 @@ Sequence ajouter_contour(Sequence *s, Contour c)
 }
 
 /* suppression de tous les éléments du contour, renvoie le contour c vide */
-Contour supprimer_Contour(Contour c)
+Contour supprimer_contour(Contour c)
 {
 	CelluleContour *cel = c.tete; 
 
@@ -128,7 +127,7 @@ Sequence supprimer_sequence(Sequence s)
 }
 
 /* concatène s2 à la suite de s1, renvoie la liste s1 modifiée */
-Contour concatener_Contours(Contour s1, Contour s2)
+Contour concatener_contours(Contour s1, Contour s2)
 {
 	/* cas où l'une des deux listes est vide */
 	if (s1.taille == 0) return s2;
@@ -144,7 +143,7 @@ Contour concatener_Contours(Contour s1, Contour s2)
 
 /* créer une séquence de points sous forme d'un tableau de points
    à partir de la liste de points s */
-Tableau_Point Contour_vers_tableau(Contour s)
+Tableau_Point contour_vers_tableau(Contour s)
 {
 	Tableau_Point t; 
 

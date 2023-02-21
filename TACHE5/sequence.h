@@ -10,12 +10,6 @@ typedef struct CelluleContour
 
 } CelluleContour;
 
-typedef struct Cellule
-{
-    Contour contour; /* contour de la séquence */
-    struct Cellule *suivant; /* pointeur sur l'élément suivant */
-} Cellule;
-
 typedef struct Contour
 {
     int taille; /* nombre d'éléments dans la liste */
@@ -24,12 +18,18 @@ typedef struct Contour
 
 } Contour;
 
+typedef struct Cellule
+{
+    Contour contour; /* contour de la séquence */
+    struct Cellule *suivant; /* pointeur sur l'élément suivant */
+} Cellule;
+
 typedef struct Sequence
 {
     int taille; /* nombre d'éléments dans liste */
     Cellule *tete; /* pointeur sur le premier élément de la liste */
     Cellule *fin; /* pointeur sur le dernier élément de la liste */
-} Sequence 
+} Sequence;
 
 typedef struct Tableau_Point
 {
@@ -40,18 +40,18 @@ typedef struct Tableau_Point
 /* créer une CelluleContour de liste avec le point p 
    renvoie le pointeur sur la CelluleContour créée 
    la fonction s'arrete si la création n'a pas pu se faire */
-CelluleContour *creer_CelluleContour(Point p);
+CelluleContour *creer_cellule_contour(Point p);
 
 /* créer une Cellule de liste avec le contour c
    renvoie le pointeur sur la CelluleContour créée 
    la fonction s'arrete si la création n'a pas pu se faire */
-Cellule *creer_Cellule(Contour c);
+Cellule *creer_cellule(Contour c);
 
 /* créer un contour vide */
-Contour creer_Contour();
+Contour creer_contour();
 
 /* créer une sequence vide */
-Sequence creer_Sequence();
+Sequence creer_sequence();
 
 /* ajoute le point p en fin du contour c, renvoie le contour c modifiée */
 Contour ajouter_point(Contour *s, Point p);
@@ -60,16 +60,16 @@ Contour ajouter_point(Contour *s, Point p);
 Sequence ajouter_contour(Sequence *s, Contour c);
 
 /* suppression de tous les éléments du contour, renvoie le contour c vide */
-Contour supprimer_Contour(Contour s);
+Contour supprimer_contour(Contour s);
 
 /* suppression de tous les éléments de la liste, renvoie la liste s vide */
 Sequence supprimer_sequence(Sequence s);
 
 /* concatène s2 à la suite de s1, renvoie la liste s1 modifiée */
-Contour concatener_Contours(Contour s1, Contour s2);
+Contour concatener_contours(Contour s1, Contour s2);
 
 /* créer une séquence de points sous forme d'un tableau de points
    à partir de la liste de points s */
-Tableau_Point Contour_vers_tableau(Contour s);
+Tableau_Point contour_vers_tableau(Contour s);
 
 #endif
