@@ -28,4 +28,5 @@ images: chat.eps image_ex_poly.eps coq.eps elephant.eps gymnaste.eps labyrinthe.
 	./test_eps $^ fill > $@
 
 clean:
-	rm -f $(IMAGES_EPS) $(EXECS)
+	rm -f $(IMAGES_EPS) $(EXECS) *.o
+	rm -f chat.eps image_ex_poly.eps coq.eps elephant.eps gymnaste.eps labyrinthe.eps lettreZ.eps map401.eps tete.eps

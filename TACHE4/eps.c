@@ -8,10 +8,10 @@ static void eps_ajoute_contour(FILE *f, Contour contour, int hauteur,
 		char *mode_trace)
 {
 	for (Cellule *c = contour.tete; c != NULL; c = c->suivant) {
-		fprintf(f, "%.1f %.1f %s ", c->data.x, hauteur - c->data.y,
+		fprintf(f, "%.1f %.1f %s\n", c->data.x, hauteur - c->data.y,
 			c == contour.tete ? moveto : lineto);
 	}
-	fprintf(f, "%s ", mode_trace);
+	fprintf(f, "%s\n", mode_trace);
 }
 
 int eps_ecrire_contour(FILE *f, Contour contour, int largeur, int hauteur,
@@ -25,7 +25,7 @@ int eps_ecrire_contour(FILE *f, Contour contour, int largeur, int hauteur,
 	fprintf(f, "%s\n", entete);
 
 	/* Boîte englobante */
-	fprintf(f, "%%BoundingBox %d %d %d %d\n", 0, 0, largeur, hauteur);
+	fprintf(f, "%%%%BoundingBox: %d %d %d %d\n", 0, 0, largeur, hauteur);
 
 	eps_ajoute_contour(f, contour, hauteur, mode_trace);
 
