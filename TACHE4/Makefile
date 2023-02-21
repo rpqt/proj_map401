@@ -1,7 +1,8 @@
-CC = clang
 CFLAGS = -lc
 LDOPTS = -lm
 EXECS:= test_eps
+
+all: test_eps images
 
 test_eps: test_eps.o geometrie2d.o robot.o image.o \
 	contour.o eps.o
@@ -22,7 +23,7 @@ contour.o: ../TACHE3/contour.c
 eps.o: eps.c
 	$(CC) -c $^ -o $@
 
-images: chat.eps image_ex_poly.eps coq.eps elephant.eps gymnaste.eps labyrinthe.eps lettreZ.eps map401.eps tete.eps
+images: chat.eps image_ex_poly.eps coq.eps elephant.eps gymnaste.eps labyrinthe.eps lettreZ.eps map401.eps tete.eps test_eps
 
 %.eps: ../TACHE3/%.pbm
 	./test_eps $^ fill > $@
