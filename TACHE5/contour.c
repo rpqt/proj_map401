@@ -125,16 +125,18 @@ Contour masque_vers_contour(Image I, Image M, int x_initial, int y_initial)
 
 Sequence image_vers_contours(Image I)
 {
-	Sequence s = creer_Sequence();
+	Sequence s = creer_sequence();
 	Image M = image_vers_masque(I);
 
 	int x, y;
 
 	while (trouve_pixel_depart(M, &x, &y))
 	{
-		Contour c = masque_vers_contour(I, M, x, y);
-		ajouter_contour(s, c);
+		Contour c = masque_vers_contour(I, M, x-1, y-1);
+		ajouter_contour(&s, c);
 	}
+
+	return s;
 }
 
 void ecrire_contour(FILE *f, Contour s)
@@ -153,7 +155,7 @@ void ecrire_contour(FILE *f, Contour s)
 
 void ecrire_fichier_contours(FILE *f, Sequence seq)
 {
-	fprintf(f, "%s", "1\n\n");
+	fprintf(f, "%d\n\n", seq.taille);
 	for (Cellule *cel = seq.tete; cel != NULL; cel = cel->suivant) {
 		ecrire_contour(f, cel->contour);
 	};

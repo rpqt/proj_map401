@@ -28,6 +28,8 @@ void affiche_contour(Contour s);
    prend une image et les coordonées de départ du robot */
 Contour image_vers_contour(Image I, int x_initial, int y_initial);
 
+Sequence image_vers_contours(Image I);
+
 /*
  * Écrit, dans le fichier donné, le nombre de points d'un contour,
  * suivi des coordonnées de chaque point.
