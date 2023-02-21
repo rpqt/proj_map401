@@ -1,16 +1,17 @@
+#include "Contour.h"
 #include "sequence.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-/* créer une cellule de liste avec l'élément v 
-   renvoie le pointeur sur la cellule créée 
+/* créer une CelluleContour de liste avec le point p 
+   renvoie le pointeur sur la CelluleContour créée 
    la fonction s'arrete si la création n'a pas pu se faire */
-Cellule *creer_cellule(Point p)
+CelluleContour *creer_CelluleContour(Point p)
 {
-	Cellule *cel;
-	cel = (Cellule *)malloc(sizeof(Cellule));
+	CelluleContour *cel;
+	cel = (CelluleContour *)malloc(sizeof(CelluleContour));
 	if (cel == NULL){
-		fprintf(stderr, "creer_cellule ; allocation impossible \n");
+		fprintf(stderr, "creer_CelluleContour ; allocation impossible \n");
 		exit(-1);
 	}
 	cel->data = p;
@@ -18,19 +19,64 @@ Cellule *creer_cellule(Point p)
 	return cel;
 }
 
-/* créer une liste vide */
-Sequence creer_sequence()
+/* créer une Cellule de liste avec le contour c
+   renvoie le pointeur sur la CelluleContour créée 
+   la fonction s'arrete si la création n'a pas pu se faire */
+Cellule *creer_Cellule(Contour c)
+{
+	Cellule *cel;
+	cel = (Cellule *)malloc(sizeof(Cellule));
+	if (cel == NULL){
+		fprintf(stderr, "creer_Cellule ; allocation impossible \n");
+		exit(-1);
+	}
+	cel->contour = c;
+	cel->suivant = NULL;
+	return cel;
+}
+
+/* créer un contour vide */
+Contour creer_Contour()
+{
+	Contour s = {0, NULL, NULL};
+	return s;
+}
+
+/* créer une sequence vide */
+Sequence creer_Sequence()
 {
 	Sequence s = {0, NULL, NULL};
 	return s;
 }
 
-/* ajouter le point p en fin de la liste s, renvoie la liste s modifiée */
-Sequence ajouter_point(Sequence *s, Point p)
+/* ajoute le point p en fin du contour c, renvoie le contour c modifiée */
+Contour ajouter_point(Contour *c, Point p)
+{
+	CelluleContour *cel;
+
+	cel = creer_CelluleContour(p);
+	if (c->taille == 0)
+	{
+		/* premier élément de la liste */
+		c->tete = cel;
+		c->fin = cel;
+	}
+	else
+	{
+		c->fin->suivant = cel;
+		c->fin = cel;
+	}
+
+	c->taille ++;
+	return *c; 
+}
+
+/* ajoute le contour c en fin de la sequence s, renvoie la sequence s modifiée */
+Sequence ajouter_contour(Sequence *s, Contour c)
 {
 	Cellule *cel;
 
-	cel = creer_cellule(p);
+	cel = creer_Cellule(c);
 	if (s->taille == 0)
 	{
 		/* premier élément de la liste */
@@ -45,6 +91,23 @@ Sequence ajouter_point(Sequence *s, Point p)
 
 	s->taille ++;
 	return *s; 
+}
+
+/* suppression de tous les éléments du contour, renvoie le contour c vide */
+Contour supprimer_Contour(Contour c)
+{
+	CelluleContour *cel = c.tete; 
+
+	while(cel)
+	{
+		CelluleContour *suivant = cel->suivant; 
+		free (cel);
+		cel = suivant;
+	}
+	c.tete = NULL;
+	c.fin = NULL;
+	c.taille = 0;
+	return c;
 }
 
 /* suppression de tous les éléments de la liste, renvoie la liste s vide */
@@ -65,7 +128,7 @@ Sequence supprimer_sequence(Sequence s)
 }
 
 /* concatène s2 à la suite de s1, renvoie la liste s1 modifiée */
-Sequence concatener_sequences(Sequence s1, Sequence s2)
+Contour concatener_Contours(Contour s1, Contour s2)
 {
 	/* cas où l'une des deux listes est vide */
 	if (s1.taille == 0) return s2;
@@ -81,7 +144,7 @@ Sequence concatener_sequences(Sequence s1, Sequence s2)
 
 /* créer une séquence de points sous forme d'un tableau de points
    à partir de la liste de points s */
-Tableau_Point sequence_vers_tableau(Sequence s)
+Tableau_Point Contour_vers_tableau(Contour s)
 {
 	Tableau_Point t; 
 
@@ -93,13 +156,13 @@ Tableau_Point sequence_vers_tableau(Sequence s)
 	if (t.tab == NULL)
 	{
 		/* allocation impossible : arret du programe avec un message */
-		fprintf(stderr, "sequence_vers_tableau : allocation impossible\n");
+		fprintf(stderr, "Contour_vers_tableau : allocation impossible\n");
 		exit(-1);
 	}
 
 	/* remplir le tableau de points t en parcourant la liste s */
 	int k = 0; /* indice de l'élément dans t.tab */
-	Cellule *cel = s.tete; /* pointeur sur l'élément dans s */
+	CelluleContour *cel = s.tete; /* pointeur sur l'élément dans s */
 	while (cel)
 	{
 		t.tab[k] = cel->data;
