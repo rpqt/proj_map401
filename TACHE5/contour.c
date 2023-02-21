@@ -1,13 +1,34 @@
 #include "contour.h"
 #include "../TACHE3/robot.h"
 #include "sequence.h"
+#include "../TACHE3/image.h"
+
+Image image_vers_masque(Image I)
+{
+	UINT hauteur = hauteur_image(I);
+	UINT largeur = largeur_image(I);
+
+	Image M = creer_image(largeur, hauteur);
+
+	for (UINT y = 1; y <= hauteur; y++) {
+		for (UINT x = 1; x <= largeur; x++) {
+			/* Pour chaque pixel noir avec son voisin N blanc
+			   on ajoute un pixel noir dans M */
+			if (get_pixel_image(I, x, y) == NOIR &&
+			    get_pixel_image(I, x, y - 1) == BLANC) {
+				set_pixel_image(M, x, y, NOIR);
+			}
+		}
+	}
+	return M;
+}
 
 bool trouve_pixel_depart(Image I, int *x_out, int *y_out)
 {
 	UINT hauteur = hauteur_image(I);
 	UINT largeur = largeur_image(I);
-	for (UINT y = 1; y < hauteur; y++) {
-		for (UINT x = 1; x < largeur; x++) {
+	for (UINT y = 1; y <= hauteur; y++) {
+		for (UINT x = 1; x <= largeur; x++) {
 			/*
 			 * On arrête dès qu'on trouve un pixel noir
 			 * avec un pixel blanc au dessus
@@ -64,22 +85,56 @@ void affiche_contour(Contour s)
 Contour image_vers_contour(Image I, int x_initial, int y_initial)
 {
 	Robot r = creer_robot(x_initial, y_initial);
-	Contour s = creer_contour();
+	Contour c = creer_contour();
 
-	/*
-	 * La boucle s'exécute tant que le robot n'est pas revenu
-	 * à sa position initiale.
-	 */
+	/* la boucle s'exécute tant que le robot n'est pas revenu
+	   à sa position initiale. */
 	do {
 		Point p = set_point(r.x, r.y);
-		ajouter_point(&s, p);
+		ajouter_point(&c, p);
 		avancer_robot(&r);
 		orienter_robot(&r, I);
 	} while (r.x != x_initial || r.y != y_initial || r.o != EST);
 
-	ajouter_point(&s, set_point(r.x, r.y));
+	ajouter_point(&c, set_point(r.x, r.y));
 
-	return s;
+	return c;
+}
+
+Contour masque_vers_contour(Image I, Image M, int x_initial, int y_initial)
+{
+	Robot r = creer_robot(x_initial, y_initial);
+	Contour c = creer_contour();
+
+	/* la boucle s'exécute tant que le robot n'est pas revenu
+	   à sa position initiale. */
+	do {
+		Point p = set_point(r.x, r.y);
+		ajouter_point(&c, p);
+		/* on vérifie l'orientation du robot pour modifier le masque M */
+		if (r.o == EST) set_pixel_image(M, r.x+1, r.y+1, BLANC);
+
+		avancer_robot(&r);
+		orienter_robot(&r, I);
+	} while (r.x != x_initial || r.y != y_initial || r.o != EST);
+
+	ajouter_point(&c, set_point(r.x, r.y));
+
+	return c;
+}
+
+Sequence image_vers_contours(Image I)
+{
+	Sequence s = creer_Sequence();
+	Image M = image_vers_masque(I);
+
+	int x, y;
+
+	while (trouve_pixel_depart(M, &x, &y))
+	{
+		Contour c = masque_vers_contour(I, M, x, y);
+		ajouter_contour(s, c);
+	}
 }
 
 void ecrire_contour(FILE *f, Contour s)
