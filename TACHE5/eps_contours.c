@@ -27,10 +27,20 @@ int main(int argc, char **argv)
 		}
 	}
 
+	/* Ouvre l'image donnée en premier argument. */
 	Image I = lire_fichier_image(argv[1]);
+	UINT L = largeur_image(I);
+	UINT H = hauteur_image(I);
 
+	/* Extrait les contours de l'image. */
 	Sequence contours = image_vers_contours(I);
 
+	supprimer_image(&I);
+
+	/* 
+	 * Ouvre le fichier EPS sortie dont le nom est
+	 * donné en deuxième argument.
+	 */
 	char *nom_sortie = argv[2];
 	FILE *fout = fopen(nom_sortie, "w");
 	if (!fout) {
@@ -40,11 +50,21 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	UINT L = largeur_image(I);
-	UINT H = hauteur_image(I);
+	/* Écrit les contours dans le fichier sortie. */
 	eps_ecrire_contours(fout, contours, L, H, mode_trace);
-
 	fclose(fout);
+
+	/* Calcule et affiche des statistiques sur les contours. */
+	int nb_points = 0;
+	for (Cellule *ctr = contours.tete; ctr != NULL; ctr = ctr->suivant) {
+		nb_points += ctr->contour.taille;
+	}
+
+	int nb_contours = contours.taille;
+	int nb_segments = nb_points - nb_contours;
+	printf("%d contours, %d segments\n", nb_contours, nb_segments);
+
+	supprimer_sequence(contours);
 
 	exit(0);
 }
