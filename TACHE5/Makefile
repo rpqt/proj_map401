@@ -31,13 +31,13 @@ LIBDIR = .
 LDOPTS = -L$(LIBDIR) -lm
 
 # options pour la recherche des fichiers .o et .h
-INCLUDEOPTS = -I$(INCDIR) -I../TACHE4 -I../TACHE3 -I/TACHE2 -I/TACHE1
+INCLUDEOPTS = -I$(INCDIR)
 
 # options de compilation
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = info_contours
+EXECUTABLES = info_contours eps_contours
 
 
 #############################################################################
@@ -92,10 +92,25 @@ image.o : ../TACHE1/image.c ../TACHE1/image.h
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 
+
+eps.o : eps.c eps.h contour.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module eps"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
+
 info_contours.o : info_contours.c contour.h
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module info_contours"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
+
+eps_contours.o : eps_contours.c
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module eps_contours"
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
 
@@ -110,6 +125,14 @@ info_contours : info_contours.o contour.o robot.o image.o geometrie2d.o \
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
-# regle pour "nettoyer" le r�pertoire
+eps_contours : eps_contours.o contour.o robot.o image.o geometrie2d.o \
+				sequence.o eps.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+# regle pour "nettoyer" le répertoire
 clean:
 	rm -fR $(EXECUTABLES) *.o 
