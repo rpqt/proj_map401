@@ -4,3 +4,5 @@ IMAGES_TESTS
 TACHE1/test_image
 TACHE3/test_contour
 *.contours
+TACHE5/info_contours
+TACHE5/eps_contours
