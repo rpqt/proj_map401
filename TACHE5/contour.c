@@ -27,8 +27,8 @@ bool trouve_pixel_depart(Image I, int *x_out, int *y_out)
 {
 	UINT hauteur = hauteur_image(I);
 	UINT largeur = largeur_image(I);
-	for (UINT y = 1; y <= hauteur; y++) {
-		for (UINT x = 1; x <= largeur; x++) {
+	for (UINT y = y_out; y <= hauteur; y++) {
+		for (UINT x = x_out; x <= largeur; x++) {
 			/*
 			 * On arrête dès qu'on trouve un pixel noir
 			 * avec un pixel blanc au dessus
@@ -128,7 +128,8 @@ Sequence image_vers_contours(Image I)
 	Sequence s = creer_sequence();
 	Image M = image_vers_masque(I);
 
-	int x, y;
+	int x = 1;
+	int y = 1;
 
 	while (trouve_pixel_depart(M, &x, &y))
 	{

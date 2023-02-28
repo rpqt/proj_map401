@@ -21,6 +21,9 @@ Vecteur set_vecteur(double x, double y);
 /* somme P1+P2 */
 Point add_point(Point P1, Point P2);
 
+/* soustraction de P1-P2 */
+Point sub_point(Point P1, Point P2);
+
 /* vecteur correspondant au bipoint AB */
 Vecteur vect_bipoint(Point A, Point B);
 
@@ -41,5 +44,8 @@ double norme_vecteur(Vecteur V);
 
 /* distance entre P1 et P2 */
 double distance_points(Point P1, Point P2);
+
+/* distance entre un point P et le segment [A, B] */
+double distance_point_segment(Point P, Point A, Point B);
 
 #endif
