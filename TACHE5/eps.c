@@ -1,6 +1,6 @@
 #include "eps.h"
 
-static const char *entete = "%!PS-Adobe-3.0 ESPF-3.0";
+static const char *entete = "%!PS-Adobe-3.0 EPSF-3.0";
 static const char *lineto = "lineto";
 static const char *moveto = "moveto";
 

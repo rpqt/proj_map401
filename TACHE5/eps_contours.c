@@ -35,9 +35,17 @@ int main(int argc, char **argv)
 	/* Extrait les contours de l'image. */
 	Sequence contours = image_vers_contours(I);
 
-	supprimer_image(&I);
+	/* Calcule et affiche des statistiques sur les contours. */
+	int nb_points = 0;
+	for (Cellule *ctr = contours.tete; ctr != NULL; ctr = ctr->suivant) {
+		nb_points += ctr->contour.taille;
+	}
 
-	/* 
+	int nb_contours = contours.taille;
+	int nb_segments = nb_points - nb_contours;
+	printf("%d contours, %d segments\n", nb_contours, nb_segments);
+
+	/*
 	 * Ouvre le fichier EPS sortie dont le nom est
 	 * donné en deuxième argument.
 	 */
@@ -54,16 +62,7 @@ int main(int argc, char **argv)
 	eps_ecrire_contours(fout, contours, L, H, mode_trace);
 	fclose(fout);
 
-	/* Calcule et affiche des statistiques sur les contours. */
-	int nb_points = 0;
-	for (Cellule *ctr = contours.tete; ctr != NULL; ctr = ctr->suivant) {
-		nb_points += ctr->contour.taille;
-	}
-
-	int nb_contours = contours.taille;
-	int nb_segments = nb_points - nb_contours;
-	printf("%d contours, %d segments\n", nb_contours, nb_segments);
-
+	supprimer_image(&I);
 	supprimer_sequence(contours);
 
 	exit(0);
