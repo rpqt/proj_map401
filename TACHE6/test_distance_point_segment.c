@@ -14,8 +14,8 @@ void test_distance(double Px, double Py, double Ax, double Ay, double Bx, double
     if (distance == d){
         printf("La distance obtenue est égale a la distance attendue.\n");
     }else {
-        printf("Erreur! La distance attendue était: %lf\n", d);
-        printf("La distance obtenue est: %lf\n", distance);
+        printf("Erreur! Distance attendue: %lf -- ", d);
+        printf("Distance obtenue: %lf\n", distance);
     }
 }
 

@@ -1,0 +1,16 @@
+Format du fichier de test "tests-distance.txt":
+
+Ligne 1: nombre de tests dans le fichier
+
+Reste du fichier: 
+    Tests de la forme "Px Py Ax Ay Bx By" 6 floats correspondant aux coordonées des points P, A et B 
+    et "d" la distance attendue entre le point P et le segment AB
+
+Tests dans le fichier: 
+Ligne 2: lambda < 0; distance attendue 1
+Ligne 3: P sur le segment AB; distance attendue 0
+Ligne 4: 0 < lambda < 1 ; distance attendue 1
+Ligne 5: lambda > 1; distance attendue 1
+Ligne 6: lambda > 1; distance attendue 4
+Ligne 7: A = B: distance attendue 1
+Ligne 8: A = B; distance attendue fausse pour vérifier le programme de test
