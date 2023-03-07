@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	printf("A = (%lf, %lf)\n", A.x, A.y);
 	printf("B = (%lf, %lf)\n", B.x, B.y);
 	printf("S = [A, B]\n");
-	printf("Distance point-segment d(A, S) = %lf\n", distance);
+	printf("Distance point-segment d(P, S) = %lf\n", distance);
 
 	return 0;
 }

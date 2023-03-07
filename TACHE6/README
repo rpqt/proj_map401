@@ -9,7 +9,7 @@ Reste du fichier:
 Tests dans le fichier: 
 Ligne 2: lambda < 0; distance attendue 1
 Ligne 3: P sur le segment AB; distance attendue 0
-Ligne 4: 0 < lambda < 1 ; distance attendue 1
+Ligne 4: 0 < lambda < 1; distance attendue 1
 Ligne 5: lambda > 1; distance attendue 1
 Ligne 6: lambda > 1; distance attendue 4
 Ligne 7: A = B: distance attendue 1
