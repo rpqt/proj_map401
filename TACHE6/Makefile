@@ -37,7 +37,7 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_distance_point_segment
+EXECUTABLES = test_distance_point_segment distance_point_segment
 
 
 #############################################################################
@@ -82,6 +82,13 @@ geometrie2d.o : ../TACHE2/geometrie2d.c ../TACHE2/geometrie2d.h
 # regles explicites de creation des executables
 
 test_distance_point_segment : test_distance_point_segment.o geometrie2d.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+distance_point_segment : distance_point_segment.o geometrie2d.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
